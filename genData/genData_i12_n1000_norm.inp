@@ -9,7 +9,7 @@ montecarlo:
 	seed = 120170510;
 	nrep = 100;
     repsave = ALL;
-	save = C:\Users\mgiordan\desktop\m3sim\lavaansim\datasets\simdat_I012_N1000_norm_*.dat;
+	save = C:\Users\mgiordan\git\msem_sim\data\mpdata_i12_n1000_norm_*.dat;
 
 
 ANALYSIS:	
