@@ -1,0 +1,91 @@
+
+TITLE:	M3 Sim
+
+montecarlo:
+	names are y1-y12 ;
+	nobservations = 1000;
+	ncsizes = 1;
+	csizes = 100 (10); !format #OfClustesr (SizeOfClusters)
+	seed = 120170510;
+	nrep = 100;
+    repsave = ALL;
+	save = C:\Users\mgiordan\desktop\m3sim\lavaansim\datasets\simdat_I012_N1000_norm_*.dat;
+
+
+ANALYSIS:	
+	TYPE IS twolevel;
+    !ESTIMATOR=BAYES;
+    !estimator = WLS;
+	!distribution = skewnormal;
+
+
+MODEL POPULATION:
+
+	%Within%
+	Aw BY y1@1; 
+	Aw BY y2@.7; 
+	Aw BY y3@.8; 
+    Aw BY y4@.8;
+    Aw BY y5@.8;
+    Aw BY y6@.8;
+    Aw BY y7@.8;
+    Aw BY y8@.8;
+    Aw BY y9@.8;
+    Aw BY y10@.8;
+    Aw BY y11@.8;
+    Aw BY y12@.8;
+	y1-y12*1;
+	Aw*1;
+
+	%Between%
+	Ab BY y1@1;
+    Ab BY y2@.9; 
+    Ab BY y3@.9; 
+    Ab BY y4@.9; 
+    Ab BY y5@.9; 
+    Ab BY y6@.9; 
+    Ab BY y7@.9; 
+    Ab BY y8@.9; 
+    Ab BY y9@.9; 
+    Ab BY y10@.9;
+    Ab BY y11@.9; 
+    Ab BY y12@.9;  
+	Ab*.4;
+	y1-y12@1;
+
+MODEL:
+	
+	%Within%
+	Aw BY y1@1; 
+	Aw BY y2@.7; 
+	Aw BY y3@.8; 
+    Aw BY y4@.8;
+    Aw BY y5@.8;
+    Aw BY y6@.8;
+    Aw BY y7@.8;
+    Aw BY y8@.8;
+    Aw BY y9@.8;
+    Aw BY y10@.8;
+    Aw BY y11@.8;
+    Aw BY y12@.8;
+	y1-y12*1;
+	Aw*1;
+
+	%Between%
+	Ab BY y1@1;
+    Ab BY y2@.9; 
+    Ab BY y3@.9; 
+    Ab BY y4@.9; 
+    Ab BY y5@.9; 
+    Ab BY y6@.9; 
+    Ab BY y7@.9; 
+    Ab BY y8@.9; 
+    Ab BY y9@.9; 
+    Ab BY y10@.9;
+    Ab BY y11@.9; 
+    Ab BY y12@.9;  
+	Ab*.4;
+	y1-y12@1;
+
+output:
+	tech8 tech9;
