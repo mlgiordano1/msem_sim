@@ -1,0 +1,9 @@
+Steps for simulation
+1. Generate data (start with all normal)
+	MPLUS or R?
+2. Generate MPLUS scripts to fit models
+3. Write code to split variance at Between vs. Within 
+4. Aggregate R-results
+5. Aggregate Mplus results
+
+6. Go back through paper
