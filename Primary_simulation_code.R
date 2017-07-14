@@ -114,17 +114,47 @@ writeLines(genData,
 # running data gen script
 runModels("C:/Users/mgiordan/git/msem_sim/genData", filefilter = "genData_i012_n1000_norm.inp")
 
+# One MPLUS template file to fit all
+fitData <- '
+[[init]]
+iterators 	= num;
+num 		= 1:100;
+filename = "simrun_i12_n1000_norm_[[num]].inp";
+outputDirectory = "C:\\Users\\mgiordan\\git\\msem_sim\\fitModels";
+[[/init]]
 
-# Generate MPLUS Scripts to Fit models
-# This is the template file. 
-text <- "
-! DO NOT EDIT IN TEXT. EDIT IN PRIMARY SIMULATION CODE r FILE. 
-MPlus Model
-Line 2
-Line 2
-"
+TITLE: "MSEM - Number of indicators(12); Sample Size(1000)"; 
+Run #[[num]] ;
 
-writeLines(text = text, con = "template.inp")
+DATA: 
+	FILE = "C:\\Users\\mgiordan\\git\\msem_sim\\genData\\mpData\\mpData_I12_N1000_norm_[[num]].dat";
+
+VARIABLE: 
+    NAMES = A1-A12 group ; 
+    MISSING=.;
+    USEVARIABLES ARE group A1-A12; 
+    CLUSTER IS group; 
+
+ANALYSIS: 
+	TYPE IS TWOLEVEL; 
+	H1ITERATIONS = 5000;
+	!estimator = WLS;
+
+MODEL:
+    %WITHIN%
+    A_wit BY A1-A12;
+    %BETWEEN%
+    A_bet BY A1-A12;
+
+OUTPUT:
+    TECH1 STDYX;
+'
+
+writeLines(fitData, con = "C:/users/mgiordan/git/msem_sim/fitModels/fitmodels_template.txt")
+createModels("C:/users/mgiordan/git/msem_sim/fitModels/fitmodels_template.txt")
+
+runModels("C:/users/mgiordan/git/msem_sim/fitModels/")
+
 # Fit MPLUS models
 
 
