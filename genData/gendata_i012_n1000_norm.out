@@ -1,10 +1,11 @@
 Mplus VERSION 7
 MUTHEN & MUTHEN
-07/13/2017  10:59 AM
+07/14/2017  10:53 AM
 
 INPUT INSTRUCTIONS
 
 
+  ! DO NOT EDIT IN TEXT. EDIT IN PRIMARY SIMULATION CODE r FILE.
   TITLE:	M3 Sim
 
   montecarlo:
@@ -95,6 +96,7 @@ INPUT INSTRUCTIONS
 
   output:
   	tech8 tech9;
+
 
 
 
@@ -4555,14 +4557,8 @@ SAVEDATA INFORMATION
   Save file record length    10000
 
 
-DIAGRAM INFORMATION
-
-  Mplus diagrams are currently not available for multilevel analysis.
-  No diagram output was produced.
-
-
-     Beginning Time:  10:59:38
-        Ending Time:  10:59:48
+     Beginning Time:  10:53:36
+        Ending Time:  10:53:46
        Elapsed Time:  00:00:10
 
 

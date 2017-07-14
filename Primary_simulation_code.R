@@ -1,10 +1,130 @@
+#-------------------------------------------------------------------------------
+# Break: Loading packages
+#-------------------------------------------------------------------------------
 library("MplusAutomation")
 
-# Run the data generating files
-runModels("C:\\Users\\mgiordan\\git\\msem_sim\\genData\\genData_i012_n1000_norm.inp")
+
+#-------------------------------------------------------------------------------
+# Break: Setting up the workspace
+#-------------------------------------------------------------------------------
+setwd("C:/users/mgiordan/git/msem_sim")
+
+
+#-------------------------------------------------------------------------------
+# Break: Begin body of code
+#-------------------------------------------------------------------------------
+
+# Generate Data mplus file
+genData <- "
+! DO NOT EDIT IN TEXT. EDIT IN PRIMARY SIMULATION CODE r FILE. 
+TITLE:	M3 Sim
+
+montecarlo:
+	names are y1-y12 ;
+	nobservations = 1000;
+	ncsizes = 1;
+	csizes = 100 (10); !format #OfClustesr (SizeOfClusters)
+	seed = 120170510;
+	nrep = 100;
+    repsave = ALL;
+	save = C:\\Users\\mgiordan\\git\\msem_sim\\genData\\mpData\\mpData_I12_N1000_norm_*.dat;
+
+
+ANALYSIS:	
+	TYPE IS twolevel;
+    !ESTIMATOR=BAYES;
+    !estimator = WLS;
+	!distribution = skewnormal;
+
+
+MODEL POPULATION:
+
+	%Within%
+	Aw BY y1@1; 
+	Aw BY y2@.7; 
+	Aw BY y3@.8; 
+    Aw BY y4@.8;
+    Aw BY y5@.8;
+    Aw BY y6@.8;
+    Aw BY y7@.8;
+    Aw BY y8@.8;
+    Aw BY y9@.8;
+    Aw BY y10@.8;
+    Aw BY y11@.8;
+    Aw BY y12@.8;
+	y1-y12*1;
+	Aw*1;
+
+	%Between%
+	Ab BY y1@1;
+    Ab BY y2@.9; 
+    Ab BY y3@.9; 
+    Ab BY y4@.9; 
+    Ab BY y5@.9; 
+    Ab BY y6@.9; 
+    Ab BY y7@.9; 
+    Ab BY y8@.9; 
+    Ab BY y9@.9; 
+    Ab BY y10@.9;
+    Ab BY y11@.9; 
+    Ab BY y12@.9;  
+	Ab*.4;
+	y1-y12@1;
+
+MODEL:
+	
+	%Within%
+	Aw BY y1@1; 
+	Aw BY y2@.7; 
+	Aw BY y3@.8; 
+    Aw BY y4@.8;
+    Aw BY y5@.8;
+    Aw BY y6@.8;
+    Aw BY y7@.8;
+    Aw BY y8@.8;
+    Aw BY y9@.8;
+    Aw BY y10@.8;
+    Aw BY y11@.8;
+    Aw BY y12@.8;
+	y1-y12*1;
+	Aw*1;
+
+	%Between%
+	Ab BY y1@1;
+    Ab BY y2@.9; 
+    Ab BY y3@.9; 
+    Ab BY y4@.9; 
+    Ab BY y5@.9; 
+    Ab BY y6@.9; 
+    Ab BY y7@.9; 
+    Ab BY y8@.9; 
+    Ab BY y9@.9; 
+    Ab BY y10@.9;
+    Ab BY y11@.9; 
+    Ab BY y12@.9;  
+	Ab*.4;
+	y1-y12@1;
+
+output:
+	tech8 tech9;
+"
+# Write input file
+writeLines(genData, 
+          "C:/Users/mgiordan/git/msem_sim/genData/genData_i012_n1000_norm.inp")
+# running data gen script
+runModels("C:/Users/mgiordan/git/msem_sim/genData", filefilter = "genData_i012_n1000_norm.inp")
+
 
 # Generate MPLUS Scripts to Fit models
+# This is the template file. 
+text <- "
+! DO NOT EDIT IN TEXT. EDIT IN PRIMARY SIMULATION CODE r FILE. 
+MPlus Model
+Line 2
+Line 2
+"
 
+writeLines(text = text, con = "template.inp")
 # Fit MPLUS models
 
 
