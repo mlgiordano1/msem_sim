@@ -9,9 +9,9 @@ setwd("C:/users/mgiordan/git/msem_sim")
 genMplusData_andFit <- TRUE
 
 
-#-------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Break: Mplus: Generate Data, 
-#-------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 if (genMplusData_andFit==TRUE) {
   # Generate Data mplus file
 genData <- "
@@ -153,8 +153,33 @@ createModels("C:/users/mgiordan/git/msem_sim/fitModels/fitmodels_template.txt")
 runModels("C:/users/mgiordan/git/msem_sim/fitModels/")
 }
 
+# ------------------------------------------------------------------------------
+# Break: Aggregating Mplus Results
+# ------------------------------------------------------------------------------
 
-# Fit MPLUS models
 
+# ------------------------------------------------------------------------------
+# Break: Fitting Models MIIV style
+# ------------------------------------------------------------------------------
+# Wd to the Mplus Data
+setwd("./genData/mpData")
+# List all files in data folder
+allDataSets <- list.files()
+# Removing the 'list' files
+allDataSets <- allDataSets[!grepl("list", allDataSets)]
 
+# Loop over every dataset
+for (i in seq(allDataSets)) {
+  
+  
+  dat <- read.table(allDataSets[i], 
+                    col.names = c(paste("y", 1:12, sep = ""), "cluster"))
+  # Create the between/within matrices
+  
+  #need to make long
+  
+  # Might be fun to try and do this with Dplyr
+  
+  
+}
 
