@@ -187,7 +187,7 @@ for (i in seq(allDataSets)) {
   # Fit with multilevel model
   nlme::lme(score~-1+y1+y2+y3+y4+y5+y6+y7+y8+y9+y10+y11+y12,
             random = ~ -1+y1+y2+y3+y4+y5+y6+y7+y8+y9+y10+y11+y12 | id/cluster, 
-            data = long)
+            data = long, method="ML", control=list(opt="optim"))
   
   }
 
