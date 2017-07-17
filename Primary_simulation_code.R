@@ -2,11 +2,12 @@
 # Break: packages, wd, initial arguments
 #-------------------------------------------------------------------------------
 library("MplusAutomation")
+library("tidyr")
 
 setwd("C:/users/mgiordan/git/msem_sim")
 # Initial arguments
 # Use this section to skip sections you don't need to re-run
-genMplusData_andFit <- TRUE
+genMplusData_andFit <- FALSE
 
 
 # ------------------------------------------------------------------------------
@@ -167,19 +168,26 @@ setwd("./genData/mpData")
 allDataSets <- list.files()
 # Removing the 'list' files
 allDataSets <- allDataSets[!grepl("list", allDataSets)]
-
+i=1
 # Loop over every dataset
 for (i in seq(allDataSets)) {
   
   
   dat <- read.table(allDataSets[i], 
                     col.names = c(paste("y", 1:12, sep = ""), "cluster"))
+  dat$id <- 1:nrow(dat)
   # Create the between/within matrices
   
   #need to make long
   
   # Might be fun to try and do this with Dplyr
+  long <- dat %>% tidyr::gather(., key = item, value = score, y1:y12)
+  long <- psych::dummy.code(long$item) %>% cbind(long, .) 
+  long$y1
+  # Fit with multilevel model
+  nlme::lme(score~-1+y1+y2+y3+y4+y5+y6+y7+y8+y9+y10+y11+y12,
+            random = ~ -1+y1+y2+y3+y4+y5+y6+y7+y8+y9+y10+y11+y12 | id/cluster, 
+            data = long)
   
-  
-}
+  }
 
