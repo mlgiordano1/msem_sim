@@ -1,4 +1,4 @@
-------Begin Mplus Model Run: 14Jul2017 10:53:36------
+------Begin Mplus Model Run: 17Jul2017 10:48:50------
 Target directory: C:/Users/mgiordan/git/msem_sim/genData
 Run options:
 	Recursive (run models in subdirectories): FALSE
@@ -7,4 +7,4 @@ Run options:
 ------
 Currently running model: genData_i012_n1000_norm.inp
 
-------End Mplus Model Run: 14Jul2017 10:53:46------
+------End Mplus Model Run: 17Jul2017 10:49:00------

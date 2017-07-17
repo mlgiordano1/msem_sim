@@ -1,20 +1,19 @@
 #-------------------------------------------------------------------------------
-# Break: Loading packages
+# Break: packages, wd, initial arguments
 #-------------------------------------------------------------------------------
 library("MplusAutomation")
 
-
-#-------------------------------------------------------------------------------
-# Break: Setting up the workspace
-#-------------------------------------------------------------------------------
 setwd("C:/users/mgiordan/git/msem_sim")
+# Initial arguments
+# Use this section to skip sections you don't need to re-run
+genMplusData_andFit <- TRUE
 
 
 #-------------------------------------------------------------------------------
-# Break: Begin body of code
+# Break: Mplus: Generate Data, 
 #-------------------------------------------------------------------------------
-
-# Generate Data mplus file
+if (genMplusData_andFit==TRUE) {
+  # Generate Data mplus file
 genData <- "
 ! DO NOT EDIT IN TEXT. EDIT IN PRIMARY SIMULATION CODE r FILE. 
 TITLE:	M3 Sim
@@ -108,13 +107,12 @@ MODEL:
 output:
 	tech8 tech9;
 "
-# Write input file
+# Write data generation input file, and run it
 writeLines(genData, 
           "C:/Users/mgiordan/git/msem_sim/genData/genData_i012_n1000_norm.inp")
-# running data gen script
 runModels("C:/Users/mgiordan/git/msem_sim/genData", filefilter = "genData_i012_n1000_norm.inp")
 
-# One MPLUS template file to fit all
+# Use Mplus automate to make scripts, which fit each data model
 fitData <- '
 [[init]]
 iterators 	= num;
@@ -149,12 +147,14 @@ MODEL:
 OUTPUT:
     TECH1 STDYX;
 '
-
+# Write template script, write all models, fit all models
 writeLines(fitData, con = "C:/users/mgiordan/git/msem_sim/fitModels/fitmodels_template.txt")
 createModels("C:/users/mgiordan/git/msem_sim/fitModels/fitmodels_template.txt")
-
 runModels("C:/users/mgiordan/git/msem_sim/fitModels/")
+}
+
 
 # Fit MPLUS models
+
 
 
